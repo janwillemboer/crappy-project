@@ -1,4 +1,4 @@
-const db = require("./database");
+import db from "./database.js";
 
 const services = {
 
@@ -26,4 +26,4 @@ const services = {
 
 };
 
-module.exports = services;
+export default services;

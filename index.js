@@ -1,3 +1,7 @@
+import fastify from "fastify";
+import db from "./database.js";
+import routes from "./routes.js";
+
 // needs a postgres database, set the connection parameters as below 
 // or specify different parameters using the command line or change below
 const conn = {
@@ -12,15 +16,13 @@ const conn = {
 const PORT = process.env.PORT || 3000;
 
 // init database connection
-const db = require("./database");
 db.connect(conn);
 
 // init fastify http server
-const server = require("fastify")();
+const server = fastify();
 
 // delegate routing to the api/routing/controller layer
-const doRouting = require("./routes");
-doRouting(server);
+routes.init(server);
 
 // start listening
 server.listen({ port: PORT }, () => console.log(`Listening at http://localhost:${PORT}`));

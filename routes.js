@@ -1,4 +1,4 @@
-const services = require("./services");
+import services from "./services.js";
 
 function doRouting(server) {
     server.get("/things/:thing_id", async (req, repl) => {
@@ -18,4 +18,6 @@ function doRouting(server) {
     });
 }
 
-module.exports = doRouting;
+export default {
+    init: doRouting
+}; 

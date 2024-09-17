@@ -1,11 +1,11 @@
-const { Client } = require("pg");
+import pg from "pg";
 
 let client;
 let connected;
 
 const db = {
     connect: function (conn) {
-        client = new Client(conn);
+        client = new pg.Client(conn);
 
         client.connect((err) => {
             connected = !err;
@@ -22,6 +22,6 @@ const db = {
         var dbResult = await client.query("SELECT NOW() AS time, $1 AS id", [requestID]);
         return dbResult.rows[0];
     }
-}
+};
 
-module.exports = db;
+export default db;
