@@ -1,4 +1,12 @@
-// needs a postgres database, set the connection parameters as below 
+import fastify from "fastify";
+import pg from "pg";
+
+// to remember you how to do imports in nodejs
+import otherModule from "./other-module.js"; 
+// this is a method call on the imported module, it only logs some random message.
+otherModule.hi();
+
+// the app needs a postgres database, set the connection parameters as below 
 // or specify different parameters using the command line or change below
 const conn = {
     host: process.env.PG_HOST || "localhost",
@@ -11,11 +19,10 @@ const conn = {
 // port the server listens on
 const PORT = process.env.PORT || 3000;
 
-const server = require("fastify")();
-const { Client } = require("pg");
+const server = fastify();
 
 let dbConnected = false;
-const client = new Client(conn);
+const client = new pg.Client(conn);
 
 client.connect((err) => {
     dbConnected = !err;
@@ -54,3 +61,6 @@ server.get("/health", async (req, repl) => {
 });
 
 server.listen({ port: PORT }, () => console.log(`Listening at http://localhost:${PORT}`));
+
+// this is a method call on the imported module, it only logs some random message
+otherModule.bye();
